@@ -41,8 +41,7 @@ public class ConexionBD {
 				+ " NOMBRE       VARCHAR(50)    NOT NULL, " 
                 + " NOMENCLATURA VARCHAR(10)  PRIMARY KEY   NOT NULL, "
 				+ " VALOR_DOLAR	REAL     NOT NULL, " 
-				+ " VOLATILIDAD	REAL     NULL, "
-				+ " STOCK	REAL     NULL "  + ")";
+				+ " VOLATILIDAD	REAL     NULL " + ")";
 		stmt.executeUpdate(sql);
 		sql = "CREATE TABLE IF NOT EXISTS ACTIVO" //En la que nos dan, activo lo separa en fiat y cripto, acá los unifiqué
 				+ "(" 

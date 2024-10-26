@@ -5,12 +5,12 @@ import java.sql.*;
 public class ConexionBD {
 	
     protected static Connection c=null;
-    private static final String DB_URL="jdbc:sqlite:walletDB.db";
+    private static final String BD_URL="jdbc:sqlite:walletDB.db";
     
     public static Connection getConnection() {
     	if(c==null) {
 		    try {
-		       c = DriverManager.getConnection(DB_URL);
+		       c = DriverManager.getConnection(BD_URL);
 		    } catch ( SQLException e ) {
 		       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 		       System.exit(0);

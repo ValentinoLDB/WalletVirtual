@@ -4,16 +4,18 @@ import java.sql.*;
 
 public class ConexionBD {
 	
-    private static Connection c=null;
+    protected static Connection c=null;
+    private static String DB_URL="jdbc:sqlite:walletDB.db";
+    
     public static Connection getConnection() {
     	if(c==null) {
 		    try {
-		       c = DriverManager.getConnection("jdbc:sqlite:walletDB.db");
+		       c = DriverManager.getConnection(DB_URL);
 		    } catch ( SQLException e ) {
 		       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 		       System.exit(0);
 		    }
-		    System.out.println("Opened database successfully");
+		    System.out.println("Conexión realizada");
     	}
     	return c;
     }
@@ -44,7 +46,7 @@ public class ConexionBD {
 		stmt.executeUpdate(sql);
 		sql = "CREATE TABLE IF NOT EXISTS ACTIVO" //En la que nos dan, activo lo separa en fiat y cripto, acá los unifiqué
 				+ "(" 
-				+ " NOMENCLATURA VARCHAR(10)  PRIMARY KEY     NOT NULL, "//si respetamos el original, debemos agregar DIRECCION
+				+ " NOMENCLATURA VARCHAR(10)  PRIMARY KEY     NOT NULL, "//si respetamos el original, debemos agregar DIRECCIÓN
 				+ " CANTIDAD	REAL    NOT NULL " + ")";
 		stmt.executeUpdate(sql);
 		sql = "CREATE TABLE IF NOT EXISTS TRANSACCION" 

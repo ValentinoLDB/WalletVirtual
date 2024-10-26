@@ -4,8 +4,8 @@ public class Moneda {
 	private String nombre;//bitcoin
     private String nomenclatura;//BTC
     private String tipo; //fiat o crypto deberia ser enum
-    private float valorDolar; //esto no lo teniamos
-    private float volatilidad;//0 a 100 ver como ponerlo asi
+    private double valorDolar; //esto no lo teniamos
+    private double volatilidad;//0 a 100 ver como ponerlo asi
 	
     public String getNombre() {
 		return nombre;
@@ -25,16 +25,16 @@ public class Moneda {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public float getValorDolar() {
+	public double getValorDolar() {
 		return valorDolar;
 	}
-	public void setValorDolar(float valorDolar) {
+	public void setValorDolar(double valorDolar) {
 		this.valorDolar = valorDolar;
 	}
-	public float getVolatilidad() {
+	public double getVolatilidad() {
 		return volatilidad;
 	}
-	public void setVolatilidad(float volatilidad) {
+	public void setVolatilidad(double volatilidad) {
 		this.volatilidad = volatilidad;
 	}
 	

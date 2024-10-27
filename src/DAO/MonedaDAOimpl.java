@@ -8,7 +8,7 @@ import java.util.List;
 import Interfaces.MonedaDAO;
 import Modelo.Moneda;
 
-public class MonedaDAOimpl implements MonedaDAO {
+public class MonedaDAOImpl implements MonedaDAO {
 
 	@Override
 	public void crear(Moneda moneda) {

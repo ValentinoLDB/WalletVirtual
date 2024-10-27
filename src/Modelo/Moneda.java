@@ -7,7 +7,18 @@ public class Moneda {
     private double valorDolar; //esto no lo teniamos
     private double volatilidad;//0 a 100 ver como ponerlo asi
 	
-    public String getNombre() {
+	public Moneda(String nombre, String nomenclatura, String tipo, double valorDolar, double volatilidad) {
+		super();
+		this.nombre = nombre;
+		this.nomenclatura = nomenclatura;
+		this.tipo = tipo;
+		this.valorDolar = valorDolar;
+		this.volatilidad = volatilidad;
+	}
+	
+	public Moneda() {};
+	
+	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {

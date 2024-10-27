@@ -1,24 +1,11 @@
 package MAIN;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import DAO.*;
+import Interfaces.*;
+import Modelo.*;
 import java.time.LocalDateTime;
 import java.util.List;
-//Hay forma de importar todo esto sin hacer tanto quilombo? es con los packages creo pero no se como se hace xd
-import DAO.ConexionBD;														
-import DAO.MonedaDAOImpl;
-import Interfaces.MonedaDAO;
-import Modelo.Moneda;
-import DAO.ActivoDAOImpl;
-import Interfaces.ActivoDAO;
-import Modelo.Activo;
-import DAO.TransaccionDAOImpl;
-import Interfaces.TransaccionDAO;
-import Modelo.Transaccion;
-import DAO.StockDAOImpl;
-import Interfaces.StockDAO;
-import Modelo.Stock;
 
 public class Main {
 	public static void main(String [] args) {
@@ -116,7 +103,6 @@ public class Main {
          System.out.println(stock.getNomenclatura() + " - " + stock.getCantidad());
      }
 	 
-     
      //cierro la conexion
      ConexionBD.closeConnection();
 	}

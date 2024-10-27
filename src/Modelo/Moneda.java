@@ -1,24 +1,26 @@
 package Modelo;
 
 public class Moneda {
+    private String tipo; //fiat o crypto deberia ser enum
 	private String nombre;//bitcoin
     private String nomenclatura;//BTC
-    private String tipo; //fiat o crypto deberia ser enum
     private double valorDolar; //esto no lo teniamos
     private double volatilidad;//0 a 100 ver como ponerlo asi
-	
-	public Moneda(String nombre, String nomenclatura, String tipo, double valorDolar, double volatilidad) {
+    
+    public Moneda() {
+    	
+    }
+    
+    public Moneda(String tipo, String nombre, String nomenclatura, double valorDolar, double volatilidad) {
 		super();
+		this.tipo = tipo;
 		this.nombre = nombre;
 		this.nomenclatura = nomenclatura;
-		this.tipo = tipo;
 		this.valorDolar = valorDolar;
 		this.volatilidad = volatilidad;
 	}
 	
-	public Moneda() {};
-	
-	public String getNombre() {
+    public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {

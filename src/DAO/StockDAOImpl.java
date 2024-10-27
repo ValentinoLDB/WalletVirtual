@@ -12,8 +12,8 @@ public class StockDAOImpl implements StockDAO {
     @Override
     public void crear(Stock stock) {
         String sql = "INSERT INTO STOCK (NOMENCLATURA, CANTIDAD) VALUES (?, ?)";
-        try (Connection connection = ConexionBD.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        Connection connection = ConexionBD.getConnection();
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, stock.getNomenclatura());
             pstmt.setDouble(2, stock.getCantidad());
             pstmt.executeUpdate();
@@ -27,8 +27,8 @@ public class StockDAOImpl implements StockDAO {
     public List<Stock> listar() {
         List<Stock> stocks = new ArrayList<>();
         String sql = "SELECT * FROM STOCK";
-        try (Connection connection = ConexionBD.getConnection();
-             Statement stmt = connection.createStatement();
+        Connection connection = ConexionBD.getConnection();
+        try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 Stock stock = new Stock();
@@ -46,8 +46,8 @@ public class StockDAOImpl implements StockDAO {
     @Override
     public void actualizar(Stock stock) {
         String sql = "UPDATE STOCK SET CANTIDAD=? WHERE NOMENCLATURA=?";
-        try (Connection connection = ConexionBD.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        Connection connection = ConexionBD.getConnection();
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setDouble(1, stock.getCantidad());
             pstmt.setString(2, stock.getNomenclatura());
             pstmt.executeUpdate();

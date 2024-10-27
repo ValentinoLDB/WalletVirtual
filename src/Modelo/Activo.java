@@ -4,7 +4,15 @@ public class Activo {
     private String nomenclatura;  // identificador de la moneda
     private double cantidad;    
 
-    // lo deje sin constructor para q este el vacio y me deje instanciarlo asi nomas
+    public Activo() {                    //para ActivoDAOImpl
+    	
+    }
+    
+    public Activo(String nomenclatura, double cantidad) {         //para el main
+    	this.nomenclatura = nomenclatura;
+    	this.cantidad = cantidad;
+    }
+    
 
     // Getters y setters
     public String getNomenclatura() {

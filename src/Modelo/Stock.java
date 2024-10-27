@@ -3,6 +3,15 @@ package Modelo;
 public class Stock {
     private String nomenclatura;
     private double cantidad;
+    
+    public Stock() {
+    	
+    }
+    
+    public Stock(String nomenclatura, double cantidad) {
+    	this.nomenclatura = nomenclatura;
+    	this.cantidad = cantidad;
+    }
 
     public String getNomenclatura() {
         return nomenclatura;

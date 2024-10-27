@@ -12,8 +12,8 @@ public class TransaccionDAOImpl implements TransaccionDAO {
     @Override
     public void crear(Transaccion transaccion) {
         String sql = "INSERT INTO TRANSACCION (RESUMEN, FECHA_HORA) VALUES (?, ?)";
-        try (Connection connection = ConexionBD.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        Connection connection = ConexionBD.getConnection();
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, transaccion.getResumen());
             pstmt.setTimestamp(2, Timestamp.valueOf(transaccion.getFechaHora()));
             pstmt.executeUpdate();
@@ -27,8 +27,8 @@ public class TransaccionDAOImpl implements TransaccionDAO {
     public List<Transaccion> listar() {
         List<Transaccion> transacciones = new ArrayList<>();
         String sql = "SELECT * FROM TRANSACCION";
-        try (Connection connection = ConexionBD.getConnection();
-             Statement stmt = connection.createStatement();
+        Connection connection = ConexionBD.getConnection();
+        try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 Transaccion transaccion = new Transaccion();
@@ -45,9 +45,9 @@ public class TransaccionDAOImpl implements TransaccionDAO {
 
     @Override
     public void actualizar(Transaccion transaccion) {
-        String sql = "UPDATE TRANSACCION SET FECHA_HORA=? WHERE RESUMEN=?";
-        try (Connection connection = ConexionBD.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        String sql = "UPDATE TRANSACCION SET FECHA_HORA=? WHERE RESUMEN=?";                      //Funciona sinm problema pero tiene sentido que el valor identificativo sea el resumen? 
+        Connection connection = ConexionBD.getConnection();										// No es primary key asique no se podria repetir el resumen y que haya dos transacciones con mismo resumen?
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setTimestamp(1, Timestamp.valueOf(transaccion.getFechaHora()));
             pstmt.setString(2, transaccion.getResumen());
             pstmt.executeUpdate();

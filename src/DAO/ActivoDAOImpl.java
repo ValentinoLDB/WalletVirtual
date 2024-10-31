@@ -56,4 +56,17 @@ public class ActivoDAOImpl implements ActivoDAO {
             e.printStackTrace();
         }
     }
+    
+    public boolean existeNomenclatura(String nomenclatura) {				//Revisa la existencia de la nomenclatura para generar el activo.
+        String sql = "SELECT 1 FROM MONEDA WHERE NOMENCLATURA = ?";
+        Connection connection = ConexionBD.getConnection();
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, nomenclatura);
+            ResultSet rs = pstmt.executeQuery();
+            return rs.next(); // Devuelve true si encuentra un registro
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Devuelve false si ocurre un error o no encuentra la nomenclatura
+    }
 }

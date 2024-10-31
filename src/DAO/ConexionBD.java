@@ -12,6 +12,7 @@ public class ConexionBD {
             if (c == null || c.isClosed()) {
                 c = DriverManager.getConnection(BD_URL);
                 System.out.println("Conexión realizada");
+                creaciónDeTablasEnBD(c);
             }
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -42,7 +43,8 @@ public class ConexionBD {
 				+ " NOMBRE       VARCHAR(50)    NOT NULL, " 
                 + " NOMENCLATURA VARCHAR(10)  PRIMARY KEY   NOT NULL, "
 				+ " VALOR_DOLAR	REAL     NOT NULL, " 
-				+ " VOLATILIDAD	REAL     NULL " + ")";
+				+ " VOLATILIDAD	REAL     NULL, "
+				+ " STOCK REAL NULL " + ")";
 		stmt.executeUpdate(sql);
 		sql = "CREATE TABLE IF NOT EXISTS ACTIVO" //En la que nos dan, activo lo separa en fiat y cripto, acá los unifiqué
 				+ "(" 
@@ -53,10 +55,6 @@ public class ConexionBD {
                 + "(" 
                 + " RESUMEN VARCHAR(1000)   NOT NULL, "
                 + " FECHA_HORA		DATETIME  NOT NULL " + ")";
-		stmt.executeUpdate(sql);
-		sql= "CREATE TABLE IF NOT EXISTS STOCK ("
-				+ " NOMENCLATURA VARCHAR(10)  PRIMARY KEY     NOT NULL, "
-				+ " CANTIDAD	REAL    NOT NULL " + ")";
 		stmt.executeUpdate(sql);
 		stmt.close();
 	}

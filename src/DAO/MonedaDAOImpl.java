@@ -12,7 +12,7 @@ public class MonedaDAOImpl implements MonedaDAO {
 
 	@Override
 	public void crear(Moneda moneda) {
-		String sql = "INSERT INTO MONEDA (TIPO, NOMBRE, NOMENCLATURA, VALOR_DOLAR, VOLATILIDAD) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO MONEDA (TIPO, NOMBRE, NOMENCLATURA, VALOR_DOLAR, VOLATILIDAD, STOCK) VALUES (?, ?, ?, ?, ?, ?)";
       	Connection connection = ConexionBD.getConnection();
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, moneda.getTipo());
@@ -20,6 +20,7 @@ public class MonedaDAOImpl implements MonedaDAO {
             pstmt.setString(3, moneda.getNomenclatura());
             pstmt.setDouble(4, moneda.getValorDolar());
             pstmt.setDouble(5, moneda.getVolatilidad());
+            pstmt.setDouble(6, moneda.getStock());
             pstmt.executeUpdate();
         } catch (SQLException e) {
         	System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -41,6 +42,7 @@ public class MonedaDAOImpl implements MonedaDAO {
                 moneda.setNomenclatura(rs.getString("NOMENCLATURA"));
                 moneda.setValorDolar(rs.getDouble("VALOR_DOLAR"));
                 moneda.setVolatilidad(rs.getDouble("VOLATILIDAD"));
+                moneda.setStock(rs.getDouble("STOCK"));
                 monedas.add(moneda);
             }
         } catch (SQLException e) {
@@ -52,14 +54,15 @@ public class MonedaDAOImpl implements MonedaDAO {
 
 	@Override
 	public void actualizar(Moneda moneda) {
-		 String sql = "UPDATE MONEDA SET TIPO=?, NOMBRE=?, VALOR_DOLAR=?, VOLATILIDAD=? WHERE NOMENCLATURA=?";
+		 String sql = "UPDATE MONEDA SET TIPO=?, NOMBRE=?, VALOR_DOLAR=?, VOLATILIDAD=?, STOCK=? WHERE NOMENCLATURA=?";
 	        Connection connection = ConexionBD.getConnection();
 	        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
 	            pstmt.setString(1, moneda.getTipo());
 	            pstmt.setString(2, moneda.getNombre());
 	            pstmt.setDouble(3, moneda.getValorDolar());
 	            pstmt.setDouble(4, moneda.getVolatilidad());
-	            pstmt.setString(5, moneda.getNomenclatura());
+	            pstmt.setDouble(5, moneda.getStock());
+	            pstmt.setString(6, moneda.getNomenclatura());
 	            pstmt.executeUpdate();
 	        } catch (SQLException e) {
 	        	System.err.println( e.getClass().getName() + ": " + e.getMessage() );

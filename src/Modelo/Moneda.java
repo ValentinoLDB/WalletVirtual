@@ -6,18 +6,20 @@ public class Moneda {
     private String nomenclatura;//BTC
     private double valorDolar; //esto no lo teniamos
     private double volatilidad;//0 a 100 ver como ponerlo asi
+    private double stock;   
     
     public Moneda() {
     	
     }
     
-    public Moneda(String tipo, String nombre, String nomenclatura, double valorDolar, double volatilidad) {
+    public Moneda(String tipo, String nombre, String nomenclatura, double valorDolar, double volatilidad, double stock) {
 		super();
 		this.tipo = tipo;
 		this.nombre = nombre;
 		this.nomenclatura = nomenclatura;
 		this.valorDolar = valorDolar;
 		this.volatilidad = volatilidad;
+		this.stock = stock;
 	}
 	
     public String getNombre() {
@@ -49,6 +51,14 @@ public class Moneda {
 	}
 	public void setVolatilidad(double volatilidad) {
 		this.volatilidad = volatilidad;
+	}
+	
+	public double getStock() {
+		return stock;
+	}
+	
+	public void setStock(double stock) {
+		this.stock=stock;
 	}
 	
 }

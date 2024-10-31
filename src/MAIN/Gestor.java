@@ -1,10 +1,12 @@
 package MAIN;
 
+import java.util.Collections;	
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import DAO.*;
 import Modelo.*;
+import Comparadores.*;
 
 public class Gestor {
 	private ActivoDAOImpl activoDAO;
@@ -63,14 +65,18 @@ public class Gestor {
         }
     }
 	
-	  public void listarMonedas( ) {
-	        List<Moneda> monedas = monedaDAO.listar();
-	        monedas.sort((m1, m2) -> Double.compare(m2.getValorDolar(), m1.getValorDolar())); // Ordenar por valor en dólares
-	        System.out.println("Listado de Monedas (ordenadas por valor en dólares):");
-	        for (Moneda moneda : monedas) {
-	            System.out.println(moneda.getNomenclatura() + " - " + moneda.getNombre() + " - $" + moneda.getValorDolar());
-	        }
+	public void listarMonedas(boolean ordenarPorNomenclatura) {
+	    List<Moneda> monedas = monedaDAO.listar();
+	    if (ordenarPorNomenclatura) {
+	        monedas.sort(new MonedaComparatorPorNomenclatura());
+	    } else {
+	        Collections.sort(monedas); // Usa compareTo de Moneda
 	    }
+	    for (Moneda moneda : monedas) {
+	        System.out.println(moneda.toString());
+	    }
+	}
+
 	
 	public void generarStock() {
 		List<Moneda> monedas = monedaDAO.listar(); // Recupera todas las monedas
@@ -85,14 +91,18 @@ public class Gestor {
         System.out.println("Stock generado aleatoriamente");
     }
 	
-	public void listarStock() {
-		List<Moneda> monedas = monedaDAO.listar();
-		monedas.sort((m1, m2) -> Double.compare(m2.getStock(), m1.getStock())); // Ordenar por stock
-		System.out.println("Listado de Stock:");
-		for (Moneda moneda : monedas) {
-			System.out.println(moneda.getNomenclatura() + " - Stock: " + moneda.getStock());
-		}
-	}	
+	public void listarStock(boolean ordenarPorNomenclatura) {
+	    List<Moneda> monedas = monedaDAO.listar();
+	    if (ordenarPorNomenclatura) {
+	        monedas.sort(new MonedaComparatorPorNomenclatura());
+	    } else {
+	        monedas.sort(new MonedaComparatorPorStock());
+	    }
+	    for (Moneda moneda : monedas) {
+	        System.out.println(moneda.getNombre() + ": " + moneda.getStock());
+	    }
+	}
+
 	
 	public void generarActivo() {
 		System.out.println("Ingrese cantidad:");
@@ -115,14 +125,18 @@ public class Gestor {
         }
 	}
 	
-	public void listarActivos( ) {
-        List<Activo> activos = activoDAO.listar();
-        activos.sort((a1, a2) -> Double.compare(a2.getCantidad(), a1.getCantidad())); // Ordenar por cantidad
-        System.out.println("Listado de Activos:");
-        for (Activo activo : activos) {
-            System.out.println(activo.getNomenclatura() + " - Cantidad: " + activo.getCantidad());
-        }
-    }
+	public void listarActivos(boolean ordenarPorNomenclatura) {
+	    List<Activo> activos = activoDAO.listar();
+	    if (ordenarPorNomenclatura) {
+	        activos.sort(new ActivoComparatorPorNomenclatura());
+	    } else {
+	        Collections.sort(activos); // Usa compareTo de Activo
+	    }
+	    for (Activo activo : activos) {
+	        System.out.println(activo.getNomenclatura() + ": " + activo.getCantidad());
+	    }
+	}
+
 }
 
 	

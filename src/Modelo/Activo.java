@@ -1,6 +1,6 @@
 package Modelo;
 
-public class Activo {
+public class Activo implements Comparable<Activo> {
     private String nomenclatura;  // identificador de la moneda
     private double cantidad;    
 
@@ -29,5 +29,10 @@ public class Activo {
 
     public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
+    }
+    
+    @Override 
+    public int compareTo(Activo otroActivo) { 
+    	return Double.compare(this.cantidad, otroActivo.cantidad); 
     }
 }

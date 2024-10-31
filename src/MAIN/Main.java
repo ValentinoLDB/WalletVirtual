@@ -1,16 +1,11 @@
-
 package MAIN;
 
 import DAO.*;
 import Modelo.*;
 import Interfaces.*;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -21,16 +16,21 @@ public class Main {
         TransaccionDAO transaccionDAO = new TransaccionDAOImpl();
         Gestor gestor = new Gestor();
         boolean continuar = true;
-        
-  /*    try (Connection connection = ConexionBD.getConnection();                      //Esto esta para que se elimine la tabla asi se cargan los datos en cada prueba
-		         Statement stmt = connection.createStatement()) {					  // El conexion realizada aparece dos veces por culpa de este try and catch.
-		        stmt.executeUpdate("DELETE FROM MONEDA");                             //Elimina los datos de moneda
-		        stmt.executeUpdate("DELETE FROM ACTIVO");							  //Elimina los datos de activo
-		        stmt.executeUpdate("DELETE FROM TRANSACCION");						//Elimina los datos de transaccion
-		    } catch (SQLException e) {
-		        e.printStackTrace();		
-		    }                          	   */
-       System.out.println("Bienvenido al sistema de Billetera Virtual");
+
+        // Eliminar tablas para pruebas (opcional)
+        /*
+        try (Connection connection = ConexionBD.getConnection();
+             Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate("DELETE FROM MONEDA");
+            stmt.executeUpdate("DELETE FROM ACTIVO");
+            stmt.executeUpdate("DELETE FROM TRANSACCION");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        */
+
+        System.out.println("Bienvenido al sistema de Billetera Virtual");
+
         while (continuar) {
             System.out.println("Seleccione una opción:");
             System.out.println("--------------------------------------------------------------------");
@@ -45,19 +45,19 @@ public class Main {
                     gestor.crearMoneda();
                     break;
                 case 2: // Listar Monedas
-                    gestor.listarMonedas();
+                    listarMonedasConOpcion(scanner, gestor);
                     break;
-                case 3: // Generar Stock 
-                    gestor.generarStock();							
+                case 3: // Generar Stock
+                    gestor.generarStock();
                     break;
                 case 4: // Listar Stock
-                	gestor.listarStock();								
+                    listarStockConOpcion(scanner, gestor);
                     break;
                 case 5: // Generar Mis Activos
-                	gestor.generarActivo();
+                    gestor.generarActivo();
                     break;
                 case 6: // Listar Mis Activos
-                    gestor.listarActivos();
+                    listarActivosConOpcion(scanner, gestor);
                     break;
                 case 7: // Simular Compra de Criptomoneda
                     simularCompra(scanner, monedaDAO, activoDAO, transaccionDAO);
@@ -73,10 +73,37 @@ public class Main {
                     break;
             }
         }
-        
+
         scanner.close();
         ConexionBD.closeConnection(); // Cerrar la conexión al final
         System.out.println("Saliendo del sistema...");
+    }
+
+    private static void listarMonedasConOpcion(Scanner scanner, Gestor gestor) {
+        System.out.println("Seleccione el criterio de ordenación:");
+        System.out.println("1. Ordenar por valor en dólares");
+        System.out.println("2. Ordenar por nomenclatura");
+        int criterio = scanner.nextInt();
+        boolean ordenarPorNomenclatura = (criterio == 2);
+        gestor.listarMonedas(ordenarPorNomenclatura);
+    }
+
+    private static void listarStockConOpcion(Scanner scanner, Gestor gestor) {
+        System.out.println("Seleccione el criterio de ordenación:");
+        System.out.println("1. Ordenar por cantidad");
+        System.out.println("2. Ordenar por nomenclatura");
+        int criterio = scanner.nextInt();
+        boolean ordenarPorNomenclatura = (criterio == 2);
+        gestor.listarStock(ordenarPorNomenclatura);
+    }
+
+    private static void listarActivosConOpcion(Scanner scanner, Gestor gestor) {
+        System.out.println("Seleccione el criterio de ordenación:");
+        System.out.println("1. Ordenar por cantidad");
+        System.out.println("2. Ordenar por nomenclatura");
+        int criterio = scanner.nextInt();
+        boolean ordenarPorNomenclatura = (criterio == 2);
+        gestor.listarActivos(ordenarPorNomenclatura);
     }
 
     private static void simularCompra(Scanner scanner, MonedaDAO monedaDAO, ActivoDAO activoDAO, TransaccionDAO transaccionDAO) {

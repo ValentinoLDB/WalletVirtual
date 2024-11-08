@@ -57,16 +57,27 @@ public class ActivoDAOImpl implements ActivoDAO {
         }
     }
     
-    public boolean existeNomenclatura(String nomenclatura) {				//Revisa la existencia de la nomenclatura para generar el activo.
-        String sql = "SELECT 1 FROM MONEDA WHERE NOMENCLATURA = ?";
+    @Override
+    public Activo obtener(String nomenclatura) {
+        String sql = "SELECT * FROM ACTIVO WHERE NOMENCLATURA = ?";
         Connection connection = ConexionBD.getConnection();
+        Activo activo = null;
+        
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, nomenclatura);
-            ResultSet rs = pstmt.executeQuery();
-            return rs.next(); // Devuelve true si encuentra un registro
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    activo = new Activo();
+                    activo.setNomenclatura(rs.getString("NOMENCLATURA"));
+                    activo.setCantidad(rs.getDouble("CANTIDAD"));
+                    // Asigna otros atributos necesarios de la clase Activo, si los hay
+                }
+            }
         } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             e.printStackTrace();
         }
-        return false; // Devuelve false si ocurre un error o no encuentra la nomenclatura
+        
+        return activo;  // Retorna el activo si se encuentra, o null si no existe
     }
 }

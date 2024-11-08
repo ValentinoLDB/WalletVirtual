@@ -1,6 +1,6 @@
 package Modelo;
 
-public class Moneda implements Comparable<Moneda> {
+public class Moneda implements Comparable<Moneda>{
     private String tipo; //fiat o crypto deberia ser enum
 	private String nombre;//bitcoin
     private String nomenclatura;//BTC
@@ -61,7 +61,7 @@ public class Moneda implements Comparable<Moneda> {
 		this.stock=stock;
 	}
 	
-	@Override 
+	@Override  
 	public int compareTo(Moneda otraMoneda) { 
 		return Double.compare(this.valorDolar, otraMoneda.valorDolar); 
 	}
@@ -73,8 +73,5 @@ public class Moneda implements Comparable<Moneda> {
 	           ", Nomenclatura: " + nomenclatura +
 	           ", Valor en Dólares: " + valorDolar;
 	}
-
-
-
 	
 }

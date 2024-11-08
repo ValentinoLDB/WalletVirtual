@@ -56,4 +56,28 @@ public class TransaccionDAOImpl implements TransaccionDAO {
             e.printStackTrace();
         }
     }
+    
+    @Override
+    public Transaccion obtener(String resumen) {
+        String sql = "SELECT * FROM TRANSACCION WHERE RESUMEN = ?";
+        Connection connection = ConexionBD.getConnection();
+        Transaccion transaccion = null;
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, resumen);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    transaccion = new Transaccion();
+                    transaccion.setResumen(rs.getString("RESUMEN"));
+                    transaccion.setFechaHora(rs.getTimestamp("FECHA_HORA").toLocalDateTime());
+                    // Otros atributos si existen
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return transaccion;  // Devuelve el objeto Transaccion o null si no existe
+    }
 }

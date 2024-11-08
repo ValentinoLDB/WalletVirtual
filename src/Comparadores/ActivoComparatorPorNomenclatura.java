@@ -10,4 +10,3 @@ public class ActivoComparatorPorNomenclatura implements Comparator<Activo> {
         return a1.getNomenclatura().compareTo(a2.getNomenclatura());
     }
 }
-

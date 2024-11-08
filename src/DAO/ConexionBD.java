@@ -11,7 +11,7 @@ public class ConexionBD {
             // Verificar si la conexión aún está abierta
             if (c == null || c.isClosed()) {
                 c = DriverManager.getConnection(BD_URL);
-                System.out.println("Conexión realizada");
+               // System.out.println("Conexión realizada");
                 creaciónDeTablasEnBD(c);
             }
         } catch (SQLException e) {

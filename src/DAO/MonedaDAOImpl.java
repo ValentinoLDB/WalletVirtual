@@ -70,7 +70,32 @@ public class MonedaDAOImpl implements MonedaDAO {
 	        }
 		
 	}
-
-
-
+	
+	@Override
+	public Moneda obtener(String nomenclatura) {
+	    String sql = "SELECT * FROM MONEDA WHERE NOMENCLATURA = ?";
+	    Connection connection = ConexionBD.getConnection();
+	    Moneda moneda = null;
+	    
+	    try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+	        pstmt.setString(1, nomenclatura);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                moneda = new Moneda();
+	                moneda.setTipo(rs.getString("TIPO"));
+	                moneda.setNombre(rs.getString("NOMBRE"));
+	                moneda.setNomenclatura(rs.getString("NOMENCLATURA"));
+	                moneda.setValorDolar(rs.getDouble("VALOR_DOLAR"));
+	                moneda.setVolatilidad(rs.getDouble("VOLATILIDAD"));
+	                moneda.setStock(rs.getDouble("STOCK"));
+	                // Otros atributos si existen
+	            }
+	        }
+	    } catch (SQLException e) {
+	        System.err.println(e.getClass().getName() + ": " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    
+	    return moneda;  // Devuelve el objeto Moneda o null si no existe
+	}
 }

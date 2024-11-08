@@ -7,7 +7,7 @@ public class Transaccion {
     private LocalDateTime fechaHora;  // FECHA
     // Operacion
     // Estado
-// Podriamos ver aca de si agregar los atributos que teniamos en el UML o respetar directamente lo que nos dieron ellos en la tabla
+    // Podriamos ver aca de si agregar los atributos que teniamos en el UML o respetar directamente lo que nos dieron ellos en la tabla
     //En mi opinion no porque este modelo de Transaccion es re distinto al nuestro xdd
     
     public Transaccion() {
